@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FCT</title>
+    <title>Manuales</title>
     <style>
         body {
             margin: 0;
@@ -28,20 +28,23 @@
             align-items: center;
         }
 
-        .menu, .submenu {
+        .menu,
+        .submenu {
             list-style: none;
             margin: 0;
             padding: 0;
         }
 
-        .menu a, .submenu a {
+        .menu a,
+        .submenu a {
             text-decoration: none;
             color: #FFFFFF;
             padding: 10px;
             display: block;
         }
 
-        .menu a:hover, .submenu a:hover {
+        .menu a:hover,
+        .submenu a:hover {
             background-color: #555;
         }
 
@@ -78,23 +81,16 @@
             <nav class="menu">
                 <a href="#" id="manuales">Manuales</a>
                 <ul class="submenu">
-                    <li><a href="#manual1">Manual 1</a></li>
-                    <li><a href="#manual2">Manual 2</a></li>
+                    <li><a href="manual1.html">Manual 1</a></li>
+                    <li><a href="manual2.html">Manual 2</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <div id="manual1" style="display:none;">
-            <h2>Manual 1</h2>
-            <p>Este es el contenido del Manual 1. Puedes agregar aquí información detallada, pasos a seguir o cualquier otro contenido relevante.</p>
-        </div>
-
-        <div id="manual2" style="display:none;">
-            <h2>Manual 2</h2>
-            <p>En el Manual 2 encontrarás información útil sobre diferentes temas. Asegúrate de revisar cada sección detenidamente.</p>
-        </div>
+        <div id="manual1" style="display:none;"></div>
+        <div id="manual2" style="display:none;"></div>
     </main>
 
     <script>
@@ -118,8 +114,16 @@
                 manualesLink.innerText = selectedManual;
                 submenu.style.display = 'none';
 
-                document.getElementById('manual1').style.display = selectedManual === 'Manual 1' ? 'block' : 'none';
-                document.getElementById('manual2').style.display = selectedManual === 'Manual 2' ? 'block' : 'none';
+                // Cargar contenido del manual desde el archivo correspondiente
+                var manualContainer = document.getElementById(selectedManual.toLowerCase());
+                if (manualContainer) {
+                    fetch(selectedManual.toLowerCase() + '.html')
+                        .then(response => response.text())
+                        .then(content => {
+                            manualContainer.innerHTML = content;
+                        })
+                        .catch(error => console.error('Error al cargar el contenido del manual:', error));
+                }
             });
         });
     </script>
