@@ -1,14 +1,130 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual 1</title>
-    <link rel="stylesheet" href="css/estilos.css">
+    <title>FCT</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #2E303E;
+            color: #FFFFFF;
+        }
+
+        header {
+            background-color: #0077B6;
+            color: #FFFFFF;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu, .submenu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu a, .submenu a {
+            text-decoration: none;
+            color: #FFFFFF;
+            padding: 10px;
+            display: block;
+        }
+
+        .menu a:hover, .submenu a:hover {
+            background-color: #555;
+        }
+
+        nav select {
+            background-color: #0077B6;
+            color: #FFFFFF;
+            border: none;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            z-index: 1;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
-    <h2>Manual 1</h2>
-    <p>Este es el contenido del Manual 1. Puedes agregar aquí información detallada, pasos a seguir o cualquier otro contenido relevante.</p>
+
+    <header>
+        <h1>Manuales</h1>
+        <div class="menu-container">
+            <nav class="menu">
+                <a href="#" id="manuales">Manuales</a>
+                <ul class="submenu">
+                    <li><a href="#manual1">Manual 1</a></li>
+                    <li><a href="#manual2">Manual 2</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div id="manual1" style="display:none;">
+            <h2>Manual 1</h2>
+            <p>Este es el contenido del Manual 1. Puedes agregar aquí información detallada, pasos a seguir o cualquier otro contenido relevante.</p>
+        </div>
+
+        <div id="manual2" style="display:none;">
+            <h2>Manual 2</h2>
+            <p>En el Manual 2 encontrarás información útil sobre diferentes temas. Asegúrate de revisar cada sección detenidamente.</p>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var manualesLink = document.getElementById('manuales');
+            var submenu = document.querySelector('.submenu');
+
+            manualesLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!event.target.closest('.menu-container')) {
+                    submenu.style.display = 'none';
+                }
+            });
+
+            submenu.addEventListener('click', function (event) {
+                var selectedManual = event.target.textContent.trim();
+                manualesLink.innerText = selectedManual;
+                submenu.style.display = 'none';
+
+                document.getElementById('manual1').style.display = selectedManual === 'Manual 1' ? 'block' : 'none';
+                document.getElementById('manual2').style.display = selectedManual === 'Manual 2' ? 'block' : 'none';
+            });
+        });
+    </script>
+
 </body>
+
 </html>
+
